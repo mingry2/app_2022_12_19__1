@@ -14,7 +14,15 @@ public class ChatMessage {
     private String content;
 
     public ChatMessage(String authorName, String content) {
-        this(1, LocalDateTime.now(), authorName, content);
+        this(ChatMessageIdGenerator.genNextId(), LocalDateTime.now(), authorName, content);
 
+    }
+}
+
+// id 값을 자동으로 증가시켜주는 클래스
+class ChatMessageIdGenerator {
+    private static long id = 0;
+    public static long genNextId(){
+        return ++id;
     }
 }
