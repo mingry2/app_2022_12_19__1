@@ -5,6 +5,7 @@ import com.ll.exam.app_2022_12_19_1.domain.RsData;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,7 +26,8 @@ public class ChatController {
         private final long id;
     }
 
-    // http://localhost:8080/chat/writeMessage
+    // 메세지 작성
+    // http://localhost:8020/chat/writeMessage
     @PostMapping("/writeMessage")
     @ResponseBody
     public RsData<WriteMessageResponse> writeMessage() {
@@ -34,5 +36,15 @@ public class ChatController {
         chatMessages.add(message);
 
         return new RsData("S-1", "메세지가 작성되었습니다.", new WriteMessageResponse(message.getId()));
+    }
+
+
+    // 작성한 메세지 조회 -> 가져오기
+    // http://localhost:8020/chat/messages
+    @GetMapping("/messages")
+    @ResponseBody
+    public RsData<List<ChatMessage>> messages() {
+
+        return new RsData<>("S-1", "조회 성공", chatMessages);
     }
 }

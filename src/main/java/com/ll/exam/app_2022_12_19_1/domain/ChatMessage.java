@@ -1,5 +1,6 @@
 package com.ll.exam.app_2022_12_19_1.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,13 +10,14 @@ import java.time.LocalDateTime;
 @Getter
 public class ChatMessage {
     private long id;
+    // 날짜 형식 바꾸기
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createDate;
     private String authorName;
     private String content;
 
     public ChatMessage(String authorName, String content) {
         this(ChatMessageIdGenerator.genNextId(), LocalDateTime.now(), authorName, content);
-
     }
 }
 
