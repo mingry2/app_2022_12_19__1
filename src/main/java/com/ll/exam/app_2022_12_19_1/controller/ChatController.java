@@ -16,13 +16,14 @@ public class ChatController {
 
     private List<ChatMessage> chatMessages = new ArrayList<>();
 
-    // 게시글 작성 후 id만 보이게 하기
+    // 게시글 작성 후 조회 시 id만 응답
     @AllArgsConstructor
     @Getter
     public static class WriteMessageResponse {
         private final long id;
     }
 
+    // RequestBody로 받은 클라이언트의 요청
     @AllArgsConstructor
     @Getter
     public static class WriteMessageRequest {
@@ -36,19 +37,25 @@ public class ChatController {
     @ResponseBody
     public RsData<WriteMessageResponse> writeMessage(@RequestBody WriteMessageRequest req) {
         ChatMessage message = new ChatMessage(req.authorName,req.content);
-
         chatMessages.add(message);
-
-        return new RsData("S-1", "메세지가 작성되었습니다.", new WriteMessageResponse(message.getId()));
+        return new RsData("S-1",
+                "메세지가 작성되었습니다.",
+                new WriteMessageResponse(message.getId()));
     }
 
+    @AllArgsConstructor
+    @Getter
+    public static class MessagesResponse {
+        private final List<ChatMessage> messages;
+    }
 
-    // 작성한 메세지 조회 -> 가져오기
+    // 작성한 메세지 조회
     // http://localhost:8020/chat/messages
     @GetMapping("/messages")
     @ResponseBody
-    public RsData<List<ChatMessage>> messages() {
-
-        return new RsData<>("S-1", "조회 성공", chatMessages);
+    public RsData<MessagesResponse> messages() {
+        return new RsData<>("S-1",
+                "조회 성공",
+                new MessagesResponse(chatMessages));
     }
 }

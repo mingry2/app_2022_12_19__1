@@ -3,7 +3,6 @@ package com.ll.exam.app_2022_12_19_1.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
