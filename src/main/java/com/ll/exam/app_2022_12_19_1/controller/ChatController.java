@@ -51,6 +51,7 @@ public class ChatController {
     @Getter
     public static class MessagesResponse {
         private final List<ChatMessage> messages;
+        private final int count;
     }
 
     @AllArgsConstructor
@@ -82,6 +83,6 @@ public class ChatController {
 
         return new RsData<>("S-1",
                 "조회 성공",
-                new MessagesResponse(messages));
+                new MessagesResponse(messages, messages.size()));
     }
 }
